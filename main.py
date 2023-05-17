@@ -5,16 +5,17 @@ from flask import render_template  # import render_template from "public" flask 
 
 # import "packages" from "this" project
 from __init__ import app,db  # Definitions initialization
-from model.jokes import initJokes
-from model.users import initUsers
-from model.players import initPlayers
+from model.nbabrackets import initJokes
+from model.nbastats import initUsers
+from model.nflbrackets import initPlayers
+from model.nflstats import initUsers
 
 
 # setup APIs
-from api.covid import covid_api # Blueprint import api definition
-from api.joke import joke_api # Blueprint import api definition
-from api.user import user_api # Blueprint import api definition
-from api.player import player_api
+from api.nbabracket import covid_api # Blueprint import api definition
+from api.nbastat import joke_api # Blueprint import api definition
+from api.nflbracket import user_api # Blueprint import api definition
+from api.nflstat import player_api
 
 
 # setup App pages
