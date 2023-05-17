@@ -44,15 +44,28 @@ class NBAStats(db.Model):
     This is constructing the fact object and the "_init_" portion is initializing the variables within that fact object. 
     In this case, this is the fact, date, and year variables that are within this object.
     '''
-    def __init__(self, fact, date, year):
-        self._fact = fact
-        self._date = date
-        self._year = year
+    def __init__(self, name, team, height, weight, gamesplayed, avgminutes, ppg, fgpercent, threepercent, ftpercent, orebounds, drebounds, assists, steals, blocks):
+        self._name = name
+        self._team = team
+        self._height  = height
+        self._weight = weight
+        self._gamesplayed = gamesplayed
+        self._avgminutes = avgminutes
+        self._ppg = ppg
+        self._fgpercent = fgpercent
+        self._threepercent = threepercent
+        self._ftpercent = ftpercent
+        self._orebounds = orebounds
+        self._drebounds = drebounds 
+        self._assists = assists
+        self._steals = steals 
+        self._blocks = blocks
     
     '''
     the following lines 44-75 contain the setter and getter methods. each of the three above variables (fact, date, year)
     are being extracted from the object and then updated after the object is created. 
     '''
+    
     @property
     def fact(self):
         return self._fact
