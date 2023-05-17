@@ -24,9 +24,19 @@ class NBAStats(db.Model):
     The below sets all of the keys that are going to be looked at. The id key is special, as it is the primary key. This is what any sort of PUT and DELETE requests will be passed through if operable.
     '''
     id = db.Column(db.Integer, primary_key=True)
-    _fact = db.Column(db.String(255), nullable=False)
-    _date = db.Column(db.String(255), nullable=False)
-    _year = db.Column(db.Integer, nullable=False )
+    _name = db.Column(db.String(255), nullable=False)
+    _team = db.Column(db.String(255), nullable=False)
+    _gamesplayed = db.Column(db.Integer, nullable=False)
+    _avgminutes = db.Column(db.Integer, nullable=False)
+    _ppg = db.Column(db.Integer, nullable=False)
+    _fgpercent = db.Column(db.Integer, nullable=False )
+    _threepercent = db.Column(db.Integer, nullable=False)
+    _ftpercent = db.Column(db.Integer, nullable=False)
+    _orebounds = db.Column(db.Integer, nullable=False)
+    _drebounds = db.Column(db.Integer, nullable=False)
+    _assists = db.Column(db.Integer, nullable=False)
+    _steals = db.Column(db.Integer, nullable=False) 
+    _blocks = db.Column(db.Integer, nullable=False)   
     
     '''
     This is constructing the fact object and the "_init_" portion is initializing the variables within that fact object. 
