@@ -67,37 +67,153 @@ class NBAStats(db.Model):
     '''
     
     @property
-    def fact(self):
-        return self._fact
+    def name(self):
+        return self._name
     
-    # setting fact variable in object
+    @name.setter
+    def name(self, name):
+       self._name = name
+    
+    @property
+    def team(self):
+        return self._team
+    
+    @team.setter
+    def team(self, team):
+       self._team = team
+    
+    @property
+    def height(self):
+        return self._height
+    
+    @height.setter
+    def height(self, height):
+       self._height = height
+    
+    @property
+    def weight(self):
+        return self._weight
+    
+    @weight.setter
+    def weight(self, weight):
+       self._weight = weight
+    
+    @property
+    def gamesplayed(self):
+        return self._gamesplayed
+    
+    @gamesplayed.setter
+    def weight(self, gamesplayed):
+       self._gamesplayed = gamesplayed
+    
+    @property
+    def avgminutes(self):
+        return self._avgminutes
+    
+    @avgminutes.setter
+    def avgminutes(self, avgminutes):
+       self._avgminutes = avgminutes
+    
+    @property
+    def ppg(self):
+        return self._ppg
+    
+    @ppg.setter
+    def ppg(self, ppg):
+       self._ppg = ppg
+    
+    @property
+    def fgpercent(self):
+        return self._fgpercent
+    
+    @fgpercent.setter
+    def fgpercent(self, fgpercent):
+       self._fgpercent = fgpercent 
+       
+    @property
+    def threepercent(self):
+        return self._threepercent
+    
+    @threepercent.setter
+    def threepercent(self, threepercent):
+       self._threepercent = threepercent 
+    
+    @property
+    def ftpercent(self):
+        return self._ftpercent
+    
+    @ftpercent.setter
+    def ftpercent(self, ftpercent):
+       self._ftpercent = ftpercent 
+    
+    @property
+    def orebounds(self):
+        return self._orebounds
+    
+    @orebounds.setter
+    def orebounds(self, orebounds):
+       self._orebounds = orebounds
+    
+    @property
+    def drebounds(self):
+        return self._drebounds
+    
+    @drebounds.setter
+    def drebounds(self, drebounds):
+       self._drebounds = drebounds
+    
+    @property
+    def assists(self):
+        return self._assists
+    
+    @assists.setter
+    def assists(self, assists):
+       self._assists = assists
+    
+    @property
+    def steals(self):
+        return self._steals
+    
+    @steals.setter
+    def steals(self, steals):
+       self._steals = steals
+    
+    @property
+    def blocks(self):
+        return self._blocks
+    
+    @blocks.setter
+    def blocks(self, blocks):
+       self._blocks = blocks
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
-    @fact.setter
-    def fact(self, fact):
-       self._fact = fact
-    
-    # extracting date from object
-    @property
-    def date(self):
-        return self._date
-    
-    # setting date variable in object
-    
-    @date.setter
-    def date(self, date):
-       self._date = date
-    
-    # extracting year from object
-    
-    @property
-    def year(self):
-        return self._year
-    
-    # setting year variable in object
-    
-    @year.setter
-    def year(self, year):
-       self._year = year
     
     '''
     The content is being outputted using "str(self)". It is being returned in JSON format, which is a readable format. This is a getter function.
