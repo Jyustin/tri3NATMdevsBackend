@@ -26,6 +26,8 @@ class NBAStats(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     _name = db.Column(db.String(255), nullable=False)
     _team = db.Column(db.String(255), nullable=False)
+    _height = db.Column(db.Integer, nullable=False)
+    _weight = db.Column(db.Integer, nullable=False)
     _gamesplayed = db.Column(db.Integer, nullable=False)
     _avgminutes = db.Column(db.Integer, nullable=False)
     _ppg = db.Column(db.Integer, nullable=False)
