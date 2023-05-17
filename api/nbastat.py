@@ -1,127 +1,59 @@
-from contextlib import nullcontext
-from flask import Blueprint, jsonify  # jsonify creates an endpoint response object
-from flask_restful import Api, Resource # used for REST API building
-import requests  # used for testing 
-import time
+from flask import Blueprint, request, jsonify
+from flask_restful import Api, Resource, reqparse # used for REST API building
+from datetime import datetime
+# the class FactofDay, defined in the corresponding model file for the feature, is being imported for its usage in the api.
+from model.nbastats import Player
 
-# Blueprints enable python code to be organized in multiple files and directories https://flask.palletsprojects.com/en/2.2.x/blueprints/
-covid_api = Blueprint('covid_api', __name__,
-                   url_prefix='/api/covid')
+# this is where the blueprint class is defined and the url prefix is set, which is then registered to the app in the main.py file.
+fact_api = Blueprint('fact_api', __name__, url_prefix='/api/fact')
 
-# API generator https://flask-restful.readthedocs.io/en/latest/api.html#id1
-api = Api(covid_api)
 
-"""Time Keeper
-Returns:
-    Boolean: is it time to update?
-"""
-def updateTime():
-    global last_run  # the last_run global is preserved between calls to function
-    try: last_run
-    except: last_run = None
+# API docs https://flask-restful.readthedocs.io/en/latest/api.html
+api = Api(fact_api)
+
+# this is the main entry point for the app, with the class factAPI. 
+class factAPI:
+    # the _create class is being referred to for the post method, to post the objects.        
+    class _Create(Resource):
+        def post(self):
+             ''' Read data for json body '''
+             body = request.json
+             
+             ''' Avoid garbage in, error checking '''
+            # validate name
+            
+            # here, this handles error checking, as the shortest fact in the world is 13 characters, so if the fact is less than that, it is deemed invalid and not added to the DB.
+             fact = body.get('fact')
+             if fact is None or len(fact) < 13:
+                return {'message': f'Fact is missing'}, 210
+           
+            # look for date, year variables
+             date = body.get('date')
+             year = body.get('year')
+
+
+             # this sets up the fact object
+             uo = FactofDay(fact, date, year)
+           
+           
+             # this adds the fact to the DB (uo.create())
+             fact = uo.create()
+             
+             # if the addition was successful, then the fact is returned to the user in a readable JSON format.
+             if fact:
+                return jsonify(fact.read())
+            # failure returns error
+             return {'message': f'Processed fact error'}, 210
     
-    # initialize last_run data
-    if last_run is None:
-        last_run = time.time()
-        return True
-    
-    # calculate time since last update
-    elapsed = time.time() - last_run
-    if elapsed > 86400:  # update every 24 hours
-        last_run = time.time()
-        return True
-    
-    return False
-
-"""API Handler
-Returns:
-    String: API response
-"""   
-def getCovidAPI():
-    global covid_data  # the covid_data global is preserved between calls to function
-    try: covid_data
-    except: covid_data = None
-
-    """
-    Preserve Service usage / speed time with a Reasonable refresh delay
-    """
-    if updateTime(): # request Covid data
-        """
-        RapidAPI is the world's largest API Marketplace. 
-        Developers use Rapid API to discover and connect to thousands of APIs. 
-        """
-        url = "https://corona-virus-world-and-india-data.p.rapidapi.com/api"
-        headers = {
-            'x-rapidapi-key': "dec069b877msh0d9d0827664078cp1a18fajsn2afac35ae063",
-            'x-rapidapi-host': "corona-virus-world-and-india-data.p.rapidapi.com"
-        }
-        response = requests.request("GET", url, headers=headers)
-        covid_data = response
-    else:  # Request Covid Data
-        response = covid_data
-
-    return response
-
-
-"""API with Country Filter
-Returns:
-    String: Filter of API response
-"""   
-def getCountry(filter):
-    # Request Covid Data
-    response = getCovidAPI()
-    # Look for Country    
-    countries = response.json().get('countries_stat')
-    for country in countries:  # countries is a list
-        if country["country_name"].lower() == filter.lower():  # this filters for country
-            return country
-    
-    return {"message": filter + " not found"}
-
-
-"""Defines API Resources 
-  URLs are defined with api.add_resource
-"""   
-class CovidAPI:
-    """API Method to GET all Covid Data"""
+    # _Read class, needed for the GET request.     
     class _Read(Resource):
         def get(self):
-            return getCovidAPI().json()
+            facts = FactofDay.query.all()    # read/extract all facts from database
+            json_ready = [fact.read() for fact in facts]  # prepares the readable output in json
+            return jsonify(json_ready)  # jsonify creates Flask response object, more specific to APIs than json.dumps
         
-    """API Method to GET Covid Data for a Specific Country"""
-    class _ReadCountry(Resource):
-        def get(self, filter):
-            return jsonify(getCountry(filter))
-    
-    # resource is called an endpoint: base usr + prefix + endpoint
+
+
+    # building the API endpoints. there is a create and read endpoint, to serve for both the GET and POST requests.
+    api.add_resource(_Create, '/create')
     api.add_resource(_Read, '/')
-    api.add_resource(_ReadCountry, '/<string:filter>')
-
-
-"""Main or Tester Condition 
-  This code only runs when this file is "played" directly
-"""        
-if __name__ == "__main__": 
-    """
-    Using this test code is how I built the backend logic around this API.  
-    There were at least 10 debugging session, on handling updateTime.
-    """
-    
-    print("-"*30) # cosmetic separator
-
-    # This code looks for "world data"
-    response = getCovidAPI()
-    print("World Totals")
-    world = response.json().get('world_total')  # turn response to json() so we can extract "world_total"
-    for key, value in world.items():  # this finds key, value pairs in country
-        print(key, value)
-
-    print("-"*30)
-
-    # This code looks for USA in "countries_stats"
-    country = getCountry("USA")
-    print("USA Totals")
-    for key, value in country.items():
-        print(key, value)
-        
-    print("-"*30)
