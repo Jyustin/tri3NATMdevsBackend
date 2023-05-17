@@ -1,7 +1,7 @@
 from flask import Blueprint, request, jsonify
 from flask_restful import Api, Resource # used for REST API building
 
-from model.players import Player
+from model.nflstats import Player
 
 # Change variable name and API name and prefix
 player_api = Blueprint('player_api', __name__,
