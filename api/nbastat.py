@@ -2,7 +2,7 @@ from flask import Blueprint, request, jsonify
 from flask_restful import Api, Resource, reqparse # used for REST API building
 from datetime import datetime
 # the class FactofDay, defined in the corresponding model file for the feature, is being imported for its usage in the api.
-from model.nbastats import Player
+from model.nbastats import NBAStats
 
 # this is where the blueprint class is defined and the url prefix is set, which is then registered to the app in the main.py file.
 fact_api = Blueprint('fact_api', __name__, url_prefix='/api/fact')
