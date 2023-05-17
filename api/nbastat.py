@@ -5,14 +5,14 @@ from datetime import datetime
 from model.nbastats import NBAStats
 
 # this is where the blueprint class is defined and the url prefix is set, which is then registered to the app in the main.py file.
-fact_api = Blueprint('fact_api', __name__, url_prefix='/api/fact')
+nbastats_api = Blueprint('nbastats_api', __name__, url_prefix='/api/nbastats')
 
 
 # API docs https://flask-restful.readthedocs.io/en/latest/api.html
-api = Api(fact_api)
+api = Api(nbastats_api)
 
 # this is the main entry point for the app, with the class factAPI. 
-class factAPI:
+class nbaAPI:
     # the _create class is being referred to for the post method, to post the objects.        
     class _Create(Resource):
         def post(self):
@@ -33,7 +33,7 @@ class factAPI:
 
 
              # this sets up the fact object
-             uo = FactofDay(fact, date, year)
+             uo = NBAStats(fact, date, year)
            
            
              # this adds the fact to the DB (uo.create())
