@@ -1,4 +1,10 @@
-""" database dependencies to support sqliteDB examples """
+'''
+The below 7 lines import all of the modules necessary for the backend and backend/frontend connection. The especially important imports are the json, init, and sqlalchemy imports.
+The "import json" import allows for the code in line 53, where the dump records are returned in json format, so that the python objects are readable in JSON format (text format). SQLAlchemy
+is the database library being used to store all of the database info for this feature. Finally, the _init_ module is necessary, as it lets the interpreter know that there is Python code in a particular directory. 
+In this case, there is Python code in the /api and /model directories.
+'''
+
 from random import randrange
 from datetime import date
 import os, base64
@@ -8,150 +14,157 @@ from __init__ import app, db
 from sqlalchemy.exc import IntegrityError
 from werkzeug.security import generate_password_hash, check_password_hash
 
-
-''' Tutorial: https://www.sqlalchemy.org/library.html#tutorials, try to get into Python shell and follow along '''
-
-class Player(db.Model):
-    __tablename__ = 'players'  # table name is plural, class name is singular
-
-    # Define the Player schema with "vars" from object
+'''
+The below is where the "FactofDay" class is being defined. This contains all of the data for the feature that needs to be managed.
+'''
+class NBAStats(db.Model):
+    __tablename__ = 'NBAStats'  
+    
+    '''
+    The below sets all of the keys that are going to be looked at. The id key is special, as it is the primary key. This is what any sort of PUT and DELETE requests will be passed through if operable.
+    '''
     id = db.Column(db.Integer, primary_key=True)
-    _name = db.Column(db.String(255), unique=False, nullable=False)
-    _uid = db.Column(db.String(255), unique=True, nullable=False)
-    _password = db.Column(db.String(255), unique=False, nullable=False)
-    _tokens = db.Column(db.Integer)    
-
-    # constructor of a Player object, initializes the instance variables within object (self)
-    def __init__(self, name, uid, tokens, password="123qwerty"):
-        self._name = name    # variables with self prefix become part of the object, 
-        self._uid = uid
-        self.set_password(password)
-        self._tokens = tokens
-
-    # a name getter method, extracts name from object
+    _fact = db.Column(db.String(255), nullable=False)
+    _date = db.Column(db.String(255), nullable=False)
+    _year = db.Column(db.Integer, nullable=False )
+    
+    '''
+    This is constructing the fact object and the "_init_" portion is initializing the variables within that fact object. 
+    In this case, this is the fact, date, and year variables that are within this object.
+    '''
+    def __init__(self, fact, date, year):
+        self._fact = fact
+        self._date = date
+        self._year = year
+    
+    '''
+    the following lines 44-75 contain the setter and getter methods. each of the three above variables (fact, date, year)
+    are being extracted from the object and then updated after the object is created. 
+    '''
     @property
-    def name(self):
-        return self._name
+    def fact(self):
+        return self._fact
     
-    # a setter function, allows name to be updated after initial object creation
-    @name.setter
-    def name(self, name):
-        self._name = name
-    
-    # a getter method, extracts email from object
-    @property
-    def uid(self):
-        return self._uid
-    
-    # a setter function, allows name to be updated after initial object creation
-    @uid.setter
-    def uid(self, uid):
-        self._uid = uid
-        
-    # check if uid parameter matches user id in object, return boolean
-    def is_uid(self, uid):
-        return self._uid == uid
-    
-    @property
-    def password(self):
-        return self._password[0:10] + "..." # because of security only show 1st characters
+    # setting fact variable in object
 
-    # update password, this is conventional setter
-    def set_password(self, password):
-        """Create a hashed password."""
-        self._password = generate_password_hash(password, method='sha256')
-
-    # check password parameter versus stored/encrypted password
-    def is_password(self, password):
-        """Check against hashed password."""
-        result = check_password_hash(self._password, password)
-        return result
+    @fact.setter
+    def fact(self, fact):
+       self._fact = fact
     
-    # dob property is returned as string, to avoid unfriendly outcomes
+    # extracting date from object
     @property
-    def tokens(self):
-        return self._tokens
+    def date(self):
+        return self._date
     
-    # dob should be have verification for type date
-    @tokens.setter
-    def tokens(self, tokens):
-        self._tokens = tokens
+    # setting date variable in object
     
+    @date.setter
+    def date(self, date):
+       self._date = date
     
-    # output content using str(object) in human readable form, uses getter
-    # output content using json dumps, this is ready for API response
+    # extracting year from object
+    
+    @property
+    def year(self):
+        return self._year
+    
+    # setting year variable in object
+    
+    @year.setter
+    def year(self, year):
+       self._year = year
+    
+    '''
+    The content is being outputted using "str(self)". It is being returned in JSON format, which is a readable format. This is a getter function.
+    '''
     def __str__(self):
         return json.dumps(self.read())
-
-    # CRUD create/add a new record to the table
-    # returns self or None on error
+    
+    
+    '''
+    defining the create method. self allows us to access all of the attributes 
+    of the current object. after the create method is defined, the data is queried from the DB.
+    in this case, since it is the create method, the data is being ADDED, and then db.session.commit() is used
+    to commit the DB transaction and apply the change to the DB.
+    '''
+    
+    '''
+    here, there is an integrity error "except" statement. db.session would be autocommitted 
+    without the db.session.remove() line, and that's something we don't want for the purpose of the project.
+    '''
     def create(self):
         try:
-            # creates a player object from Player(db.Model) class, passes initializers
-            db.session.add(self)  # add prepares to persist person object to Users table
-            db.session.commit()  # SqlAlchemy "unit of work pattern" requires a manual commit
+            db.session.add(self)  
+            db.session.commit() 
             return self
         except IntegrityError:
             db.session.remove()
             return None
+    
+    '''
+    the delete method is defined with the "self" parameter. this method is mainly for certain instances in the DB being 
+    garbage collected, and the object kills itself.
+    '''
 
-    # CRUD read converts self to dictionary
-    # returns dictionary
-    def read(self):
-        return {
-            "id": self.id,
-            "name": self.name,
-            "uid": self.uid,
-            "tokens": self.tokens,
-            "password": self._password
-        }
-
-    # CRUD update: updates name, uid, password, tokens
-    # returns self
-    def update(self, dictionary):
-        """only updates values in dictionary with length"""
-        for key in dictionary:
-            if key == "name":
-                self.name = dictionary[key]
-            if key == "uid":
-                self.uid = dictionary[key]
-            if key == "password":
-                self.set_password(dictionary[key])
-            if key == "tokens":
-                self.tokens = dictionary[key]
-        db.session.commit()
-        return self
-
-    # CRUD delete: remove self
-    # return self
     def delete(self):
-        player = self
         db.session.delete(self)
         db.session.commit()
-        return player
+        return None
+    
+    '''
+    read method with the self parameter, reading the object with all of the 
+    properties: fact, date, and year are being returned.
+    '''
+    def read(self):
+        return {
+            "fact" : self.fact,
+            "date" : self.date,
+            "year" : self.year,
+        }
 
+'''
+handling the situation where the table is completely empty,
+returns the length from the session query of the initialized class FactofDay to be 0.
+''' 
+def fact_table_empty():
+    return len(db.session.query(FactofDay).all()) == 0
 
-"""Database Creation and Testing """
+'''
+defines the initFactDay function, and then creates the tables and the DB here through the db.create_all() method.
+'''
+def initFactDay():
+    db.create_all()
+    #db.init_app(app)
+    if not fact_table_empty():
+        return
+    
+    print("Creating data")
+    """Create database and tables"""
+    """Data for table"""
+    
+    f1 = FactofDay("Arizona became the 48th state in the Union.", "February 14th", 1912)
+    f2 = FactofDay("The USS Maine Sank after an explosion in Havana Harbor", "February 15th", 1898)
+    f3 = FactofDay("Power in Cuba was seized by Fidel Castro", "February 16th", 1959)
 
+    
+    '''
+    the variable "factslist" being used for the tester data, containing f1, f2, 
+    and f3, the variables with the sample data above.
+    '''
+    factslist = [f1, f2, f3]
+    
+    
+    '''
+    the below is for the sample data: for each fact in the defined factlist, the DB session will add that fact, and then commit the transaction
+    with the next line. or, if there is bad/duplicate data, the data will not be committed, and session will be rolled back to its previous
+    state. 
+    '''
 
-# Builds working data for testing
-def initPlayers():
-    with app.app_context():
-        """Create database and tables"""
-        db.create_all()
-        """Tester records for table"""
-        players = [
-            Player(name='Azeem Khan', uid='azeemK', tokens=45),
-            Player(name='Ahad Biabani', uid='ahadB', tokens=41),
-            Player(name='Akshat Parikh', uid='akshatP', tokens=40),
-            Player(name='Josh Williams', uid='joshW', tokens=38)
-        ]
-
-        """Builds sample user/note(s) data"""
-        for player in players:
-            try:
-                player.create()
-            except IntegrityError:
-                '''fails with bad or duplicate data'''
-                db.session.remove()
-                print(f"Records exist, duplicate email, or error: {player.uid}")
+    for fact in factslist:
+        try:
+            db.session.add(fact)
+            db.session.commit()
+        except IntegrityError as e:
+            print("Error: " +str(e))
+            '''fails with bad or duplicate data'''
+            db.session.rollback()    
