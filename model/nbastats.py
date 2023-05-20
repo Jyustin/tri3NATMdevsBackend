@@ -188,33 +188,6 @@ class NBAStats(db.Model):
     
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-
-    
     '''
     The content is being outputted using "str(self)". It is being returned in JSON format, which is a readable format. This is a getter function.
     '''
@@ -258,41 +231,53 @@ class NBAStats(db.Model):
     '''
     def read(self):
         return {
-            "fact" : self.fact,
-            "date" : self.date,
-            "year" : self.year,
+            "name" : self.name,
+            "team" : self.team,
+            "height" : self.height,
+            "weight" : self.weight,
+            "gamesplayed" : self.gamesplayed,
+            "avgminutes" : self.avgminutes,
+            "ppg" : self.ppg,
+            "fgpercent" : self.fgpercent,
+            "threepercent": self.threepercent,
+            "ftpercent": self.ftpercent,
+            "orebounds": self.orebounds,
+            "drebounds": self.drebounds,
+            "assists": self.assists,
+            "steals": self.steals,
+            "blocks": self.blocks
         }
 
 '''
 handling the situation where the table is completely empty,
 returns the length from the session query of the initialized class FactofDay to be 0.
 ''' 
-def fact_table_empty():
-    return len(db.session.query(FactofDay).all()) == 0
+def stats_table_empty():
+    return len(db.session.query(NBAStats).all()) == 0
 
 '''
 defines the initFactDay function, and then creates the tables and the DB here through the db.create_all() method.
 '''
-def initFactDay():
+def initNBAStats():
     db.create_all()
     #db.init_app(app)
-    if not fact_table_empty():
+    if not stats_table_empty():
         return
     
     print("Creating data")
     """Create database and tables"""
     """Data for table"""
     
-    f1 = FactofDay("Arizona became the 48th state in the Union.", "February 14th", 1912)
-    f2 = FactofDay("The USS Maine Sank after an explosion in Havana Harbor", "February 15th", 1898)
-    f3 = FactofDay("Power in Cuba was seized by Fidel Castro", "February 16th", 1959)
+    s1 = NBAStats("Arizona became the 48th state in the Union.", "February 14th", 1912)
+    s2 = NBAStats("The USS Maine Sank after an explosion in Havana Harbor", "February 15th", 1898)
+    s3 = NBAStats("Power in Cuba was seized by Fidel Castro", "February 16th", 1959)
 
     
     '''
-    the variable "factslist" being used for the tester data, containing f1, f2, 
-    and f3, the variables with the sample data above.
+    the variable "statslist" being used for the tester data, containing s1, s2, 
+    and s3, the variables with the sample data above.
     '''
-    factslist = [f1, f2, f3]
+    statslist = [s1, s2, s3]
     
     
     '''
@@ -301,7 +286,7 @@ def initFactDay():
     state. 
     '''
 
-    for fact in factslist:
+    for stat in statslist:
         try:
             db.session.add(fact)
             db.session.commit()
