@@ -23,33 +23,46 @@ class nbaAPI:
             # validate name
             
             # here, this handles error checking, as the shortest fact in the world is 13 characters, so if the fact is less than that, it is deemed invalid and not added to the DB.
-             fact = body.get('fact')
-             if fact is None or len(fact) < 13:
-                return {'message': f'Fact is missing'}, 210
+             stat = body.get('stat')
+             if stat is None or len(stat) < 15:
+                return {'message': f'Player is missing'}, 210
            
             # look for date, year variables
-             date = body.get('date')
-             year = body.get('year')
+             name = body.get('name')
+             team = body.get('team')
+             height = body.get('height')
+             weight = body.get('weight')
+             gamesplayed = body.get('gamesplayed')
+             avgminutes = body.get('avgminutes')
+             ppg = body.get('ppg')
+             fgpercent = body.get('fgpercent')
+             threepercent = body.get('threepercent')
+             ftpercent = body.get('ftpercent')
+             orebounds = body.get('orebounds')
+             drebounds = body.get('drebounds')
+             assists = body.get('assists')
+             steals = body.get('steals')
+             blocks = body.get('blocks')
 
 
              # this sets up the fact object
-             uo = NBAStats(fact, date, year)
+             uo = NBAStats(stat, name, team, height, weight, gamesplayed, avgminutes, ppg, fgpercent, threepercent, ftpercent, orebounds, drebounds, assists, steals, blocks)
            
            
              # this adds the fact to the DB (uo.create())
-             fact = uo.create()
+             stat = uo.create()
              
              # if the addition was successful, then the fact is returned to the user in a readable JSON format.
-             if fact:
-                return jsonify(fact.read())
+             if stat:
+                return jsonify(stat.read())
             # failure returns error
              return {'message': f'Processed fact error'}, 210
     
     # _Read class, needed for the GET request.     
     class _Read(Resource):
         def get(self):
-            facts = FactofDay.query.all()    # read/extract all facts from database
-            json_ready = [fact.read() for fact in facts]  # prepares the readable output in json
+            stats = NBAStats.query.all()    # read/extract all facts from database
+            json_ready = [stat.read() for stat in stats]  # prepares the readable output in json
             return jsonify(json_ready)  # jsonify creates Flask response object, more specific to APIs than json.dumps
         
 
