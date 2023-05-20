@@ -15,7 +15,7 @@ from sqlalchemy.exc import IntegrityError
 from werkzeug.security import generate_password_hash, check_password_hash
 
 '''
-The below is where the "FactofDay" class is being defined. This contains all of the data for the feature that needs to be managed.
+The below is where the "NBAStats" class is being defined. This contains all of the data for the feature that needs to be managed.
 '''
 class NBAStats(db.Model):
     __tablename__ = 'NBAStats'  
