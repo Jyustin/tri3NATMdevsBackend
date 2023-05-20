@@ -9,10 +9,8 @@ from model.nbabrackets import initJokes
 from model.nbastats import initNBAStats
 
 # setup APIs
-from api.nbabracket import covid_api # Blueprint import api definition
-from api.nbastat import joke_api # Blueprint import api definition
-from api.nflbracket import user_api # Blueprint import api definition
-from api.nflstat import player_api
+from api.nbabracket import joke_api # Blueprint import api definition
+from api.nbastat import nbastats_api # Blueprint import api definition
 
 
 # setup App pages
@@ -24,9 +22,7 @@ db.init_app(app)
 
 # register URIs
 app.register_blueprint(joke_api) # register api routes
-app.register_blueprint(covid_api) # register api routes
-app.register_blueprint(user_api) # register api routes
-app.register_blueprint(player_api)
+app.register_blueprint(nbastats_api) # register api routes
 app.register_blueprint(app_projects) # register app pages
 
 @app.errorhandler(404)  # catch for URL not found
