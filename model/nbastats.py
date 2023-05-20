@@ -288,7 +288,7 @@ def initNBAStats():
 
     for stat in statslist:
         try:
-            db.session.add(fact)
+            db.session.add(stat)
             db.session.commit()
         except IntegrityError as e:
             print("Error: " +str(e))
