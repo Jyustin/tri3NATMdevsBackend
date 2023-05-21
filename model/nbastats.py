@@ -260,7 +260,7 @@ defines the initFactDay function, and then creates the tables and the DB here th
 '''
 def initNBAStats():
     db.create_all()
-    #db.init_app(app)
+    db.init_app(app)
     if not stats_table_empty():
         return
     
