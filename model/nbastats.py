@@ -259,16 +259,17 @@ def stats_table_empty():
 defines the initFactDay function, and then creates the tables and the DB here through the db.create_all() method.
 '''
 def initNBAStats():
-    db.create_all()
-    db.init_app(app)
-    if not stats_table_empty():
-        return
+    with app.app_context():
+        db.create_all()
+        db.init_app(app)
+        if not stats_table_empty():
+            return
     
-    print("Creating data")
-    """Create database and tables"""
-    """Data for table"""
+        print("Creating data")
+        """Create database and tables"""
+        """Data for table"""
     
-    s1 = NBAStats("LeBron James", "Los Angeles Lakers", 81, 225, 1421, 32, 28, 52, 29, 85, 2, 2, 7, 1, 1)
+        s1 = NBAStats("LeBron James", "Los Angeles Lakers", 81, 225, 1421, 32, 28, 52, 29, 85, 2, 2, 7, 1, 1)
 
     
     '''
@@ -286,8 +287,7 @@ def initNBAStats():
 
     for stat in statslist:
         try:
-            db.session.add(stat)
-            db.session.commit()
+            stat.create()
         except IntegrityError as e:
             print("Error: " +str(e))
             '''fails with bad or duplicate data'''
