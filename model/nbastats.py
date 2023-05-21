@@ -268,16 +268,14 @@ def initNBAStats():
     """Create database and tables"""
     """Data for table"""
     
-    s1 = NBAStats()
-    s2 = NBAStats()
-    s3 = NBAStats()
+    s1 = NBAStats("LeBron James", "Los Angeles Lakers", 81, 225, 1421, 32, 28, 52, 29, 85, 2, 2, 7, 1, 1)
 
     
     '''
     the variable "statslist" being used for the tester data, containing s1, s2, 
     and s3, the variables with the sample data above.
     '''
-    statslist = [s1, s2, s3]
+    statslist = [s1]
     
     
     '''
