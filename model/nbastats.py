@@ -268,9 +268,9 @@ def initNBAStats():
     """Create database and tables"""
     """Data for table"""
     
-    s1 = NBAStats("Arizona became the 48th state in the Union.", "February 14th", 1912)
-    s2 = NBAStats("The USS Maine Sank after an explosion in Havana Harbor", "February 15th", 1898)
-    s3 = NBAStats("Power in Cuba was seized by Fidel Castro", "February 16th", 1959)
+    s1 = NBAStats()
+    s2 = NBAStats()
+    s3 = NBAStats()
 
     
     '''
