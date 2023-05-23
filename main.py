@@ -11,7 +11,7 @@ from model.nbastats import initNBAStats
 # setup APIs
 from api.nbastat import nbastats_api # Blueprint import api definition
 
-
+#test
 # setup App pages
 from projects.projects import app_projects # Blueprint directory import projects definition
 
