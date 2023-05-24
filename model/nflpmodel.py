@@ -4,10 +4,11 @@ from datetime import date
 import os, base64
 import json
 
-
 from __init__ import app, db
 from sqlalchemy.exc import IntegrityError
 from werkzeug.security import generate_password_hash, check_password_hash
+
+
 
     """Defining Class and Variables"""  
 
@@ -33,6 +34,7 @@ class NFLPlayer(db.Model):
     interceptions = db.Column(db.Integer, unique=False, nullable=False)
 
 
+
     """Constructor"""  
 
    def __init__(self, name, team, position, jersey_number, age, height, weight, college, experience, touchdowns, receptions, passing_yards, rushing_yards, tackles, sacks, interceptions):
@@ -52,6 +54,8 @@ class NFLPlayer(db.Model):
         self.tackles = tackles
         self.sacks = sacks
         self.interceptions = interceptions
+
+
 
  
     """Setter and Getter Methods for all Variables"""  
