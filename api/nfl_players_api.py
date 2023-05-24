@@ -101,3 +101,5 @@ class NFLPlayerAPI:
     api.add_resource(_Delete, '/delete')
     api.add_resource(_Update, '/update')
     api.add_resource(_Read, '/')
+
+### Complete API
