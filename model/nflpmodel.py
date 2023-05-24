@@ -160,6 +160,34 @@ class NFLPlayer(db.Model):
     def rushing_yards(self):
         return self._rushing_yards
 
+    
+    @rushing_yards.setter
+    def rushing_yards(self, rushing_yards):
+        self._rushing_yards = rushing_yards
+
+    @property
+    def tackles(self):
+        return self._tackles
+
+    @tackles.setter
+    def tackles(self, tackles):
+        self._tackles = tackles
+
+    @property
+    def sacks(self):
+        return self._sacks
+
+    @sacks.setter
+    def sacks(self, sacks):
+        self._sacks = sacks
+
+    @property
+    def interceptions(self):
+        return self._interceptions
+
+    @interceptions.setter
+    def interceptions(self, interceptions):
+        self._interceptions = interceptions
 
    
 
