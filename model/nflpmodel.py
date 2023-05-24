@@ -190,12 +190,6 @@ class NFLPlayer(db.Model):
         self._interceptions = interceptions
 
    
-
-
-
-   
-
-
     def __str__(self):
         return json.dumps(self.read())
 
@@ -205,9 +199,9 @@ class NFLPlayer(db.Model):
     """CRUD METHODS """  
     def create(self):
         try:
-            # creates a NFL News object from NFLNews(db.Model) class, passes initializers
-            db.session.add(self)  # add prepares to persist NFL News object to NFLNews table
-            db.session.commit()  # SqlAlchemy "unit of work pattern" requires a manual commit
+            # 
+            db.session.add(self)  
+            db.session.commit()  
             return self
         except IntegrityError:
             db.session.remove()
