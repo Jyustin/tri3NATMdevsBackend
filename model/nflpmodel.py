@@ -60,7 +60,69 @@ class NFLPlayer(db.Model):
  
     """Setter and Getter Methods for all Variables"""  
 
+    @property
+    def name(self):
+        return self._name
 
+    @name.setter
+    def name(self, name):
+        self._name = name
+
+    @property
+    def team(self):
+        return self._team
+
+    @team.setter
+    def team(self, team):
+        self._team = team
+
+    @property
+    def position(self):
+        return self._position
+
+    @position.setter
+    def position(self, position):
+        self._position = position
+
+    @property
+    def jersey_number(self):
+        return self._jersey_number
+
+    @jersey_number.setter
+    def jersey_number(self, jersey_number):
+        self._jersey_number = jersey_number
+
+    @property
+    def age(self):
+        return self._age
+
+    @age.setter
+    def age(self, age):
+        self._age = age
+
+    @property
+    def height(self):
+        return self._height
+
+    @height.setter
+    def height(self, height):
+        self._height = height
+
+    @property
+    def weight(self):
+        return self._weight
+
+    @weight.setter
+    def weight(self, weight):
+        self._weight = weight
+
+    @property
+    def college(self):
+        return self._college
+
+    @college.setter
+    def college(self, college):
+        self._college = college
 
 
 
