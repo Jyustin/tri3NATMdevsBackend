@@ -31,6 +31,8 @@ class NFLPlayer(db.Model):
     interceptions = db.Column(db.Integer, unique=False, nullable=False)
 
 
+    """Constructor"""  
+
    def __init__(self, name, team, position, jersey_number, age, height, weight, college, experience, touchdowns, receptions, passing_yards, rushing_yards, tackles, sacks, interceptions):
         self.name = name
         self.team = team
