@@ -124,6 +124,41 @@ class NFLPlayer(db.Model):
     def college(self, college):
         self._college = college
 
+       @property
+    def experience(self):
+        return self._experience
+
+    @experience.setter
+    def experience(self, experience):
+        self._experience = experience
+
+    @property
+    def touchdowns(self):
+        return self._touchdowns
+
+    @touchdowns.setter
+    def touchdowns(self, touchdowns):
+        self._touchdowns = touchdowns
+
+    @property
+    def receptions(self):
+        return self._receptions
+
+    @receptions.setter
+    def receptions(self, receptions):
+        self._receptions = receptions
+
+    @property
+    def passing_yards(self):
+        return self._passing_yards
+
+    @passing_yards.setter
+    def passing_yards(self, passing_yards):
+        self._passing_yards = passing_yards
+
+    @property
+    def rushing_yards(self):
+        return self._rushing_yards
 
 
    
