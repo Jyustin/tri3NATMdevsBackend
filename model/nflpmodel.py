@@ -196,7 +196,7 @@ class NFLPlayer(db.Model):
 
 
 
-    """CRUD METHODS """  
+    """CRUD METHODS (And More convenient methods to help out in the future) """  
     
     def create(self):
         try:
