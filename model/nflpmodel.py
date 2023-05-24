@@ -209,7 +209,68 @@ class NFLPlayer(db.Model):
             return None
 
 
-    
+    @staticmethod
+    def getPlayerById(player_id):
+        return NFLPlayer.query.get(player_id)
+
+    def update(self, player_id):
+        try:
+            player_to_update = NFLPlayer.getPlayerById(player_id)
+            if player_to_update:
+                player_to_update.name = self.name
+                player_to_update.team = self.team
+                player_to_update.position = self.position
+                player_to_update.jersey_number = self.jersey_number
+                player_to_update.age = self.age
+                player_to_update.height = self.height
+                player_to_update.weight = self.weight
+                player_to_update.college = self.college
+                player_to_update.experience = self.experience
+                player_to_update.touchdowns = self.touchdowns
+                player_to_update.receptions = self.receptions
+                player_to_update.passing_yards = self.passing_yards
+                player_to_update.rushing_yards = self.rushing_yards
+                player_to_update.tackles = self.tackles
+                player_to_update.sacks = self.sacks
+                player_to_update.interceptions = self.interceptions
+
+                db.session.commit()
+                return NFLPlayer.getPlayerById(player_id)
+            else:
+                return None
+        except IntegrityError:
+            db.session.remove()
+            return None
+
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()
+        return None
+
+    @staticmethod
+    def getPlayerByName(player_name):
+        return NFLPlayer.query.filter_by(name=player_name).first()
+
+    def read(self):
+        return {
+            "name": self.name,
+            "team": self.team,
+            "position": self.position,
+            "jersey_number": self.jersey_number,
+            "age": self.age,
+            "height": self.height,
+            "weight": self.weight,
+            "college": self.college,
+            "experience": self.experience,
+            "touchdowns": self.touchdowns,
+            "receptions": self.receptions,
+            "passing_yards": self.passing_yards,
+            "rushing_yards": self.rushing_yards,
+            "tackles": self.tackles,
+            "sacks": self.sacks,
+            "interceptions": self.interceptions,
+            "id": self.id
+        }
 
 
 """ Test data creation - Database Creation and Testing """
