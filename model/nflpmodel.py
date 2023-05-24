@@ -197,6 +197,7 @@ class NFLPlayer(db.Model):
 
 
     """CRUD METHODS """  
+    
     def create(self):
         try:
             # 
@@ -208,76 +209,7 @@ class NFLPlayer(db.Model):
             return None
 
 
-    # Returns a single team by its id
-    def getTeamById(teamid):
-        return db.session.query(NFLTeam).filter(NFLTeam.id == teamid).first()
-
-
-    # Update the team values       
-    def update(self, tid):
-        try:
-            teamToUpdate = NFLTeam.query.filter_by(id=tid).first()
-            teamToUpdate._team = self.team
-            teamToUpdate._division = self._division
-            teamToUpdate._gamesplayed = self._gamesplayed
-            teamToUpdate._gameswon = self._gameswon
-            teamToUpdate._gameslost = self._gameslost
-            teamToUpdate._gamesdrawn = self._gamesdrawn
-            teamToUpdate._pointsagainst = self._pointsagainst
-            teamToUpdate._pointsfor = self._pointsfor
-            teamToUpdate._gameslostathome = self._gameslostathome
-            teamToUpdate._gameswonathome = self._gameswonathome
-            teamToUpdate._gamesplayedathome = self._gamesplayedathome
-            teamToUpdate._gamesplayedaway = self._gamesplayedaway
-            teamToUpdate._gameswonaway = self._gameswonaway
-            teamToUpdate._gameslostaway = self._gameslostaway
-            teamToUpdate._playoffs = self._playoffs
-            db.session.commit()  # SqlAlchemy "unit of work pattern" requires a manual commit
-            print(tid)
-            return NFLTeam.getTeamById(teamid = tid)
-        except IntegrityError:
-            db.session.remove()
-            return None
-
-
-   
-    def delete(self):
-        db.session.delete(self)
-        db.session.commit()
-        return None
-
-
-    # Find a team by its name
-    def getTeam(nflteamname):
-        result = db.session.query(NFLTeam).filter(NFLTeam._team == nflteamname)
-        for row in result:
-            return row
- 
-    # Return a json string representation of team object      
-    def read(self):
-        return {
-            "division" : self.division,
-            "team" : self.team,
-            "gamesplayed" : self.gamesplayed,
-            "gameswon" : self.gameswon,
-            "gameslost" : self.gameslost,
-            "gamesdrawn" : self.gamesdrawn,
-            "gamesplayedathome" : self.gamesplayedathome,
-            "gamesplayedaway" : self.gamesplayedaway,
-            "gameswonathome" : self.gameswonathome,
-            "gameslostathome" : self.gameslostathome,
-            "gameswonaway" : self.gameswonaway,
-            "gameslostaway" : self.gameslostaway,
-            "gamesplayed5" : self.gamesplayed5,
-            "gameswon5" : self.gameswon5,
-            "gameslost5" : self.gameslost5,
-            "pointsfor" : self.pointsfor,
-            "pointsagainst" : self.pointsagainst,
-            "playoffs" : self.playoffs,
-            "id": self.id
-        }
-
-
+    
 
 
 """ Test data creation - Database Creation and Testing """
