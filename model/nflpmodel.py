@@ -8,90 +8,46 @@ import json
 from __init__ import app, db
 from sqlalchemy.exc import IntegrityError
 from werkzeug.security import generate_password_hash, check_password_hash
-# Creating the NFLTeam class to represent data for team stat
-class NFLTeam(db.Model):
-    # DB table name - NFLTeam 
-    __tablename__ = 'NFLTeam'  
 
-
-    # Defining the Object Variable
-
+class NFLPlayer(db.Model):
+    __tablename__ = 'NFLPlayer'
 
     id = db.Column(db.Integer, primary_key=True)
-    # Division the team played in
-    _division = db.Column(db.String(255), unique=False, nullable=False)
-    # Team name
-    _team = db.Column(db.String(255), unique=True, nullable=False)
-    # Playoffs boolean value
-    _playoffs = db.Column(db.String(255), unique=False, nullable=False)
-    # Games Played integer value
-    _gamesplayed = db.Column(db.Integer, primary_key=False)
-    # Games Won integer value
-    _gameswon = db.Column(db.Integer, primary_key=False)
-    # Games Lost integer value
-    _gameslost = db.Column(db.Integer, primary_key=False)
-    # Games Drawn integer value
-    _gamesdrawn = db.Column(db.Integer, primary_key=False)
-    # Games Played at Home integer value
-    _gamesplayedathome = db.Column(db.Integer, primary_key=False)
-    # Games Played Away integer value
-    _gamesplayedaway = db.Column(db.Integer, primary_key=False)
-    # Games Won at home integer value
-    _gameswonathome = db.Column(db.Integer, primary_key=False)
-    # Games Lost at home integer value
-    _gameslostathome = db.Column(db.Integer, primary_key=False)
-    # Games Won away integer value
-    _gameswonaway = db.Column(db.Integer, primary_key=False)
-    # Games Lost away integer value
-    _gameslostaway = db.Column(db.Integer, primary_key=False)
-    # Games Played last 5 integer value
-    _gamesplayed5 = db.Column(db.Integer, primary_key=False)
-    # Games Won last 5 integer value
-    _gameswon5 = db.Column(db.Integer, primary_key=False)
-    # Games Lost last 5 integer value
-    _gameslost5 = db.Column(db.Integer, primary_key=False)
-    # Points for integer value
-    _pointsfor = db.Column(db.Integer, primary_key=False)
-    # Points against integer value
-    _pointsagainst = db.Column(db.Integer, primary_key=False)
-    # Points in the fourth quarter integer value
-    _pointsinfourthquarter = db.Column(db.Integer, primary_key=False)
-    # Overall Perctantage (%)
-    _pctoverall = db.Column(db.Integer, primary_key=False)
-    # Perctantage at home (%)
-    _pcthome = db.Column(db.Integer, primary_key=False)
-    # Perctantage away(%)
-    _pctaway = db.Column(db.Integer, primary_key=False)
-    # Perctantage last 5(%)
-    _pctlast5 = db.Column(db.Integer, primary_key=False)
-   
-   
+    name = db.Column(db.String(255), unique=False, nullable=False)
+    team = db.Column(db.String(255), unique=False, nullable=False)
+    position = db.Column(db.String(255), unique=False, nullable=False)
+    jersey_number = db.Column(db.Integer, unique=False, nullable=False)
+    age = db.Column(db.Integer, unique=False, nullable=False)
+    height = db.Column(db.String(20), unique=False, nullable=False)
+    weight = db.Column(db.Float, unique=False, nullable=False)
+    college = db.Column(db.String(255), unique=False, nullable=False)
+    experience = db.Column(db.Integer, unique=False, nullable=False)
+    touchdowns = db.Column(db.Integer, unique=False, nullable=False)
+    receptions = db.Column(db.Integer, unique=False, nullable=False)
+    passing_yards = db.Column(db.Integer, unique=False, nullable=False)
+    rushing_yards = db.Column(db.Integer, unique=False, nullable=False)
+    tackles = db.Column(db.Integer, unique=False, nullable=False)
+    sacks = db.Column(db.Float, unique=False, nullable=False)
+    interceptions = db.Column(db.Integer, unique=False, nullable=False)
 
 
-    # Constructor of a NFLTeam object, initializes the instance variables within object (self)
-
-
-    def __init__(self, division, team, gamesplayed, gameswon, gameslost, gamesdrawn, gamesplayedathome, gamesplayedaway, gameswonathome, gameslostathome, gameswonaway, gameslostaway, gamesplayed5, gameswon5, gameslost5, pointsfor, pointsagainst,  playoffs):
-        self._division = division
-        self._team = team    # variables with "own"" prefix become part of the object
-        self._gamesplayed = gamesplayed
-        self._gameswon = gameswon
-        self._gameslost = gameslost
-        self._gamesdrawn = gamesdrawn
-        self._gamesplayedathome = gamesplayedathome
-        self._gamesplayedaway = gamesplayedaway
-        self._gameswonathome = gameswonathome
-        self._gameslostathome = gameslostathome
-        self._gameswonaway = gameswonaway
-        self._gameslostaway = gameslostaway
-        self._gamesplayed5 = gamesplayed5
-        self._gameswon5 = gameswon5
-        self._gameslost5 = gameslost5
-        self._pointsfor = pointsfor
-        self._pointsagainst = pointsagainst
-        #self._pointsinfourthquarter = pointsinfourthquarter
-        self._playoffs = playoffs
-
+   def __init__(self, name, team, position, jersey_number, age, height, weight, college, experience, touchdowns, receptions, passing_yards, rushing_yards, tackles, sacks, interceptions):
+        self.name = name
+        self.team = team
+        self.position = position
+        self.jersey_number = jersey_number
+        self.age = age
+        self.height = height
+        self.weight = weight
+        self.college = college
+        self.experience = experience
+        self.touchdowns = touchdowns
+        self.receptions = receptions
+        self.passing_yards = passing_yards
+        self.rushing_yards = rushing_yards
+        self.tackles = tackles
+        self.sacks = sacks
+        self.interceptions = interceptions
 
  
     """Setter and Getter Methods for all Variables"""  
