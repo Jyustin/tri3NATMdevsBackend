@@ -10,7 +10,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 
 
-    """Defining Class and Variables"""  
+"""Defining Class and Variables"""  
 
 class NFLPlayer(db.Model):
     __tablename__ = 'NFLPlayer'
@@ -37,7 +37,7 @@ class NFLPlayer(db.Model):
 
     """Constructor"""  
 
-   def __init__(self, name, team, position, jersey_number, age, height, weight, college, experience, touchdowns, receptions, passing_yards, rushing_yards, tackles, sacks, interceptions):
+    def __init__(self, name, team, position, jersey_number, age, height, weight, college, experience, touchdowns, receptions, passing_yards, rushing_yards, tackles, sacks, interceptions):
         self.name = name
         self.team = team
         self.position = position
@@ -271,7 +271,6 @@ class NFLPlayer(db.Model):
             "interceptions": self.interceptions,
             "id": self.id
         }
-
 
 """ Test data creation - Database Creation and Testing """
 
