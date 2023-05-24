@@ -124,7 +124,7 @@ class NFLPlayer(db.Model):
     def college(self, college):
         self._college = college
 
-       @property
+    @property
     def experience(self):
         return self._experience
 
