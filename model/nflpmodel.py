@@ -275,6 +275,30 @@ class NFLPlayer(db.Model):
 
 """ Test data creation - Database Creation and Testing """
 
-
+def initNFLPlayers():
+    print("Creating test data")
+    """Create database and tables"""
+    db.create_all()
+    
+    """Tester data for table"""
+    
+    p1 = NFLPlayer(name="Tom Brady", team="Tampa Bay Buccaneers", position="Quarterback", jersey_number=12, age=44)
+    p2 = NFLPlayer(name="Patrick Mahomes", team="Kansas City Chiefs", position="Quarterback", jersey_number=15, age=25)
+    p3 = NFLPlayer(name="Aaron Rodgers", team="Green Bay Packers", position="Quarterback", jersey_number=12, age=37)
+    p4 = NFLPlayer(name="Derrick Henry", team="Tennessee Titans", position="Running Back", jersey_number=22, age=27)
+    p5 = NFLPlayer(name="Stefon Diggs", team="Buffalo Bills", position="Wide Receiver", jersey_number=14, age=27)
+    p6 = NFLPlayer(name="Travis Kelce", team="Kansas City Chiefs", position="Tight End", jersey_number=87, age=32)
+    p7 = NFLPlayer(name="Aaron Donald", team="Los Angeles Rams", position="Defensive Tackle", jersey_number=99, age=30)
+    p8 = NFLPlayer(name="Jalen Ramsey", team="Los Angeles Rams", position="Cornerback", jersey_number=20, age=26)
+    
+    nflplayersofficial = [p1, p2, p3, p4, p5, p6, p7, p8]
+    
+    """Builds sample player data"""
+    for player in nflplayersofficial:
+        try:
+            player.create()
+        except IntegrityError:
+            db.session.remove()
+            print(f"Records exist or error: {player.id}")
 
   
