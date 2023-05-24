@@ -9,6 +9,8 @@ from __init__ import app, db
 from sqlalchemy.exc import IntegrityError
 from werkzeug.security import generate_password_hash, check_password_hash
 
+    """Defining Class and Variables"""  
+
 class NFLPlayer(db.Model):
     __tablename__ = 'NFLPlayer'
 
