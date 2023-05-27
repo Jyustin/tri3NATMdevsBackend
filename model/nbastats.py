@@ -103,7 +103,7 @@ class NBAStats(db.Model):
         return self._gamesplayed
     
     @gamesplayed.setter
-    def weight(self, gamesplayed):
+    def gamesplayed(self, gamesplayed):
        self._gamesplayed = gamesplayed
     
     @property
@@ -262,7 +262,8 @@ def initNBAStats():
     with app.app_context():
         db.create_all()
         s1 = NBAStats("LeBron James", "Los Angeles Lakers", 81, 225, 1421, 32, 28, 52, 29, 85, 2, 2, 7, 1, 1)
-        statslist = [s1]
+        s2 = NBAStats("Stephen Curry", "Golden State Warriors", 71, 222, 1444, 33, 22, 51, 22, 86, 3, 4, 5, 6, 5)
+        statslist = [s1,s2]
         for stat in statslist:
             try:
                 stat.create()
