@@ -262,7 +262,8 @@ def initNBAStats():
     with app.app_context():
         db.create_all()
         s1 = NBAStats("LeBron James", "Los Angeles Lakers", 81, 225, 1421, 32, 28, 52, 29, 85, 2, 2, 7, 1, 1)
-        s2 = NBAStats("Stephen Curry", "Golden State Warriors", 71, 222, 1444, 33, 22, 51, 22, 86, 3, 4, 5, 6, 5)
+        s2 = NBAStats("Steph Curry", "Golden State Warriors", 83, 201, 1222, 29, 33, 51, 25, 88, 3, 1, 6, 2, 1)
+
         statslist = [s1,s2]
         for stat in statslist:
             try:
