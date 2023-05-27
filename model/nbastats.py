@@ -261,10 +261,11 @@ defines the initFactDay function, and then creates the tables and the DB here th
 def initNBAStats():
     with app.app_context():
         db.create_all()
-        s1 = NBAStats("LeBron James", "Los Angeles Lakers", 81, 225, 1421, 32, 28, 52, 29, 85, 2, 2, 7, 1, 1)
+        s1 = NBAStats("LeBron James", "Los Angeles Lakers", 81, 250, 1421, 38, 28, 52, 29, 85, 2, 2, 7, 1, 1)
         s2 = NBAStats("Steph Curry", "Golden State Warriors", 83, 201, 1222, 29, 33, 51, 25, 88, 3, 1, 6, 2, 1)
+        s3 = NBAStats("Jerry West", "Los Angeles Lakers", 75, 175, 932, 39, 27, 47, 0, 81, 3, 3, 7, 3, 1)
 
-        statslist = [s1,s2]
+        statslist = [s1,s2,s3]
         for stat in statslist:
             try:
                 stat.create()
