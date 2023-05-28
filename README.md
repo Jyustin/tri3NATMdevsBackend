@@ -34,16 +34,5 @@ nix-shell ./env
     code .
     ```
 
-    - In VSCode open Terminal, verify Nix python
-    ```bash
-    which python
-    ```
-    - Open Setting: Ctl-Shift P or Cmd-Shift
-        - Search Python: Select Interpreter
-        - Match interpreter to `which output` above
-
-    - Try Play button and try to Debug
-    
-
 ### SportsGames: Why Backend?
 > 
