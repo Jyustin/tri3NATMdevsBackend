@@ -1,42 +1,15 @@
 ## [SportsGames BACKEND](https://github.com/Jyustin/tri3NATMdevsBackend)
 Runtime link: https://tri3dev.duckdns.org/
 
-### Quick way to get started
-> Quick steps with MacOS or WSL; this uses Nix for programmatic way to build tools and dependencies.
+### GETTING STARTED
 
-
-- Open a Terminal, install nix which requires admin password: 
-```bash
-sh <(curl -L https://nixos.org/nix/install)
-```
-
-- ***Restart Terminal***
-
-- Install Python Package helper
-
-```bash
-nix-env -if https://github.com/DavHau/mach-nix/tarball/3.5.0 -A mach-nix
-```
-
-
-- Open a Terminal, cd to project area
+- Cloning the Backend Repository for Transferability
 
 ```bash
 mkdir ~/vscode; cd ~/vscode
 
 git clone [https://github.com/Jyustin/tri3NATMdevsBackend.git]
 cd tri3NATMdevsBackend
-```
-
-- Build nix packages from requirements.txt
-
-```bash
-mach-nix env ./env -r requirements.txt
-```
-
-- End of nix shell setup, exit shell
-```
-exit
 ```
 
 ### Run Server or run VSCode
