@@ -41,8 +41,8 @@ class NBAStats(db.Model):
     _blocks = db.Column(db.Integer, nullable=False)   
     
     '''
-    This is constructing the fact object and the "_init_" portion is initializing the variables within that fact object. 
-    In this case, this is the fact, date, and year variables that are within this object.
+    This is constructing the player object and the "_init_" portion is initializing the variables within that player object. 
+    In this case, this is the thirteen variables that are within this object.
     '''
     def __init__(self, name, team, height, weight, gamesplayed, avgminutes, ppg, fgpercent, threepercent, ftpercent, orebounds, drebounds, assists, steals, blocks):
         self._name = name
@@ -62,7 +62,7 @@ class NBAStats(db.Model):
         self._blocks = blocks
     
     '''
-    the following lines 44-75 contain the setter and getter methods. each of the three above variables (fact, date, year)
+    the following lines 44-75 contain the setter and getter methods. each of the above variables
     are being extracted from the object and then updated after the object is created. 
     '''
     
@@ -227,7 +227,7 @@ class NBAStats(db.Model):
     
     '''
     read method with the self parameter, reading the object with all of the 
-    properties: fact, date, and year are being returned.
+    properties.
     '''
     def read(self):
         return {
@@ -250,13 +250,13 @@ class NBAStats(db.Model):
 
 '''
 handling the situation where the table is completely empty,
-returns the length from the session query of the initialized class FactofDay to be 0.
+returns the length from the session query of the initialized class NBAStats to be 0.
 ''' 
 def stats_table_empty():
     return len(db.session.query(NBAStats).all()) == 0
 
 '''
-defines the initFactDay function, and then creates the tables and the DB here through the db.create_all() method.
+defines the initNBAStats function, and then creates the tables and the DB here through the db.create_all() method.
 '''
 def initNBAStats():
     with app.app_context():
@@ -292,7 +292,7 @@ def initNBAStats():
     
     
     '''
-    the below is for the sample data: for each fact in the defined factlist, the DB session will add that fact, and then commit the transaction
+    the below is for the sample data: for each fact in the defined statslist, the DB session will add that player and their stats, and then commit the transaction
     with the next line. or, if there is bad/duplicate data, the data will not be committed, and session will be rolled back to its previous
     state. 
     '''
