@@ -1,4 +1,4 @@
-## [SportsGames BACKEND](https://github.com/nighthawkcoders/flask_portfolio)
+## [SportsGames BACKEND](https://github.com/Jyustin/tri3NATMdevsBackend)
 Runtime link: https://tri3dev.duckdns.org/
 
 ### Quick way to get started
