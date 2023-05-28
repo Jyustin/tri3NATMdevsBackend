@@ -22,7 +22,7 @@ class nbaAPI:
              ''' Avoid garbage in, error checking '''
             # validate name
             
-            # here, this handles error checking, as the shortest fact in the world is 13 characters, so if the fact is less than that, it is deemed invalid and not added to the DB.
+            # here, this handles error checking, as the shortest player name in the world is 15 characters, so if the name is less than that, it is deemed invalid and not added to the DB.
              stat = body.get('stat')
              if stat is None or len(stat) < 15:
                 return {'message': f'Player is missing'}, 210
@@ -52,7 +52,7 @@ class nbaAPI:
              # this adds the fact to the DB (uo.create())
              stat = uo.create()
              
-             # if the addition was successful, then the fact is returned to the user in a readable JSON format.
+             # if the addition was successful, then the player data is returned to the user in a readable JSON format.
              if stat:
                 return jsonify(stat.read())
             # failure returns error
@@ -61,7 +61,7 @@ class nbaAPI:
     # _Read class, needed for the GET request.     
     class _Read(Resource):
         def get(self):
-            stats = NBAStats.query.all()    # read/extract all facts from database
+            stats = NBAStats.query.all()    # read/extract all players from database
             json_ready = [stat.read() for stat in stats]  # prepares the readable output in json
             return jsonify(json_ready)  # jsonify creates Flask response object, more specific to APIs than json.dumps
         
