@@ -334,6 +334,12 @@ def initNBAStats():
         s71 = NBAStats("Tracy McGrady", "Orlando Magic", 82, 210, 2023, 39.4, 32.1, 45.7, 33.5, 75.5, 1.3, 0.8, 6.5, 4.4, 1.6)
         s72 = NBAStats("Anthony Davis", "Los Angeles Lakers", 64, 2443, 1879, 36.5, 51.3, 29.3, 84.6, 3.0, 1.3, 1.6, 2.3, 1.8)
         s73 = NBAStats("Klay Thompson", "Golden State Warriors", 79, 215, 615, 33.7, 19.7, 45.6, 42.0, 89.4, 0.9, 3.6, 2.3, 1.0, 0.9)
+        s74 = NBAStats("Stephen Curry", "Golden State Warriors", 74, 185, 882, 34.9, 24.2, 47.6, 43.3, 90.7, 0.5, 4.8, 6.6, 1.7, 0.2)
+        s75 = NBAStats("LeBron James", "Los Angeles Lakers", 80, 250, 1300, 39.6, 27.1, 50.4, 34.5, 73.1, 1.0, 7.4, 7.4, 1.6, 0.8)
+        
+
+
+
 
 
 
