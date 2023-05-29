@@ -11,17 +11,11 @@ from model.nbastats import initNBAStats
 # setup APIs
 from api.nbastat import nbastats_api # Blueprint import api definition
 
-#test
-# setup App pages
-from projects.projects import app_projects # Blueprint directory import projects definition
-
-
 # Initialize the SQLAlchemy object to work with the Flask app instance
 db.init_app(app)
 
 # register URIs
 app.register_blueprint(nbastats_api) # register api routes
-app.register_blueprint(app_projects) # register app pages
 
 @app.errorhandler(404)  # catch for URL not found
 def page_not_found(e):
