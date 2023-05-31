@@ -1,6 +1,6 @@
 from flask import Blueprint, request, jsonify, make_response
 from flask_restful import Api, Resource
-from models.premierleagueplayer_model import PremierLeaguePlayer
+from model.pleague_players_model import PremierLeaguePlayer
 
 premierleagueplayers_api = Blueprint('premierleagueplayers_api', __name__, url_prefix='/api/premierleagueplayer')
 
@@ -87,11 +87,11 @@ class PremierLeaguePlayerAPI:
                     return {'message': f'Premier League player with ID: ({player_id}) not found.'}, 210
                 name = player.name
                 PremierLeaguePlayer.delete(player)
-                return {'message': f'Premier League player \'{name}\' ({player_id}) deleted.
+                return {'message': f'Premier League player \'{name}\' ({player_id}) deleted.'}, 200
 
 
 
-api.add_resource(_Create, '/create')
-api.add_resource(_Delete, '/delete')
-api.add_resource(_Update, '/update')
-api.add_resource(_Read, '/')
+    api.add_resource(_Create, '/create')
+    api.add_resource(_Delete, '/delete')
+    api.add_resource(_Update, '/update')
+    api.add_resource(_Read, '/')

@@ -109,7 +109,7 @@ class PremierLeaguePlayer(db.Model):
         self._weight = weight
 
 
-     @property
+    @property
     def goals(self):
         return self._goals
 
@@ -223,30 +223,31 @@ class PremierLeaguePlayer(db.Model):
         return PremierLeaguePlayer.query.all()
 
 
-    def initPremierLeaguePlayers():
-    print("Creating test data")
-    """Create database and tables"""
-    db.create_all()
-    
-    """Test data for table"""
-    
-    p1 = PremierLeaguePlayer(name="Mohamed Salah", team="Liverpool", position="Forward", jersey_number=11, age=29)
-    p2 = PremierLeaguePlayer(name="Harry Kane", team="Tottenham Hotspur", position="Forward", jersey_number=10, age=28)
-    p3 = PremierLeaguePlayer(name="Kevin De Bruyne", team="Manchester City", position="Midfielder", jersey_number=17, age=30)
-    p4 = PremierLeaguePlayer(name="Virgil van Dijk", team="Liverpool", position="Defender", jersey_number=4, age=30)
-    p5 = PremierLeaguePlayer(name="Bruno Fernandes", team="Manchester United", position="Midfielder", jersey_number=18, age=27)
-    p6 = PremierLeaguePlayer(name="Jack Grealish", team="Aston Villa", position="Midfielder", jersey_number=10, age=25)
-    p7 = PremierLeaguePlayer(name="Riyad Mahrez", team="Manchester City", position="Forward", jersey_number=26, age=30)
-    p8 = PremierLeaguePlayer(name="N'Golo Kanté", team="Chelsea", position="Midfielder", jersey_number=7, age=30)
-    
-    premierleagueplayersofficial = [p1, p2, p3, p4, p5, p6, p7, p8]
-    
-    """Builds sample player data"""
-    for player in premierleagueplayersofficial:
-        try:
-            player.create()
-        except IntegrityError:
-            db.session.remove()
-            print(f"Records exist or error: {player.id}")
+def initPremierLeaguePlayers():
+    with app.app_context():
+        print("Creating test data")
+        """Create database and tables"""
+        db.create_all()
+        
+        """Test data for table"""
+        
+        p1 = PremierLeaguePlayer(name="Mohamed Salah", team="Liverpool", position="Forward", jersey_number=11, age=29)
+        p2 = PremierLeaguePlayer(name="Harry Kane", team="Tottenham Hotspur", position="Forward", jersey_number=10, age=28)
+        p3 = PremierLeaguePlayer(name="Kevin De Bruyne", team="Manchester City", position="Midfielder", jersey_number=17, age=30)
+        p4 = PremierLeaguePlayer(name="Virgil van Dijk", team="Liverpool", position="Defender", jersey_number=4, age=30)
+        p5 = PremierLeaguePlayer(name="Bruno Fernandes", team="Manchester United", position="Midfielder", jersey_number=18, age=27)
+        p6 = PremierLeaguePlayer(name="Jack Grealish", team="Aston Villa", position="Midfielder", jersey_number=10, age=25)
+        p7 = PremierLeaguePlayer(name="Riyad Mahrez", team="Manchester City", position="Forward", jersey_number=26, age=30)
+        p8 = PremierLeaguePlayer(name="N'Golo Kanté", team="Chelsea", position="Midfielder", jersey_number=7, age=30)
+            
+        premierleagueplayersofficial = [p1, p2, p3, p4, p5, p6, p7, p8]
+            
+        """Builds sample player data"""
+        for player in premierleagueplayersofficial:
+            try:
+                player.create()
+            except IntegrityError:
+                db.session.remove()
+                print(f"Records exist or error: {player.id}")
 
-    
+initPremierLeaguePlayers()
