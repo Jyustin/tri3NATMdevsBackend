@@ -4,7 +4,6 @@ from __main__ import app, db
 from flask import request
 from flask import Flask, jsonify, request
 
-app = Flask(__name__)
 
 questions = [
     {
@@ -163,7 +162,6 @@ questions = [
         'points' : '500'
     },
 ]
-
 @app.route("/questions", methods=["GET"])
 def get_questions():
     return jsonify(questions)
