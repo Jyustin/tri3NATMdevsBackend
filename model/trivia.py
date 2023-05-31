@@ -180,7 +180,7 @@ def check_answer():
 
     return jsonify({"result": "Incorrect"})
 
-@app.route('/api/jeopardy', methods=["GET"])
+@app.route("/api/check_answer", methods=["GET", "POST"])
 def jeopardy():
     category = request.args.get('category')
     points = request.args.get('points')
