@@ -8,27 +8,28 @@ from __init__ import app, db
 from sqlalchemy.exc import IntegrityError
 from werkzeug.security import generate_password_hash, check_password_hash
 
+# ensure that JSON sorting doesn't change the order of values in view
+app.config['JSON_SORT_KEYS'] = False
 
 """Premier League Player class"""
-
 class PremierLeaguePlayer(db.Model):
     __tablename__ = 'PremierLeaguePlayer'
 
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(255), unique=False, nullable=False)
-    team = db.Column(db.String(255), unique=False, nullable=False)
-    position = db.Column(db.String(255), unique=False, nullable=False)
-    jersey_number = db.Column(db.Integer, unique=False, nullable=False)
-    age = db.Column(db.Integer, unique=False, nullable=False)
-    height = db.Column(db.String(20), unique=False, nullable=False)
-    weight = db.Column(db.Float, unique=False, nullable=False)
-    goals = db.Column(db.Integer, unique=False, nullable=False)
-    assists = db.Column(db.Integer, unique=False, nullable=False)
-    yellow_cards = db.Column(db.Integer, unique=False, nullable=False)
-    red_cards = db.Column(db.Integer, unique=False, nullable=False)
-    passes_completed = db.Column(db.Integer, unique=False, nullable=False)
-    tackles = db.Column(db.Integer, unique=False, nullable=False)
-    clean_sheets = db.Column(db.Integer, unique=False, nullable=False)
+    _name = db.Column(db.String(255), unique=False, nullable=False)
+    _team = db.Column(db.String(255), unique=False, nullable=False)
+    _position = db.Column(db.String(255), unique=False, nullable=False)
+    _jersey_number = db.Column(db.Integer, unique=False, nullable=False)
+    _age = db.Column(db.Integer, unique=False, nullable=False)
+    _height = db.Column(db.String(20), unique=False, nullable=False)
+    _weight = db.Column(db.Float, unique=False, nullable=False)
+    _goals = db.Column(db.Integer, unique=False, nullable=False)
+    _assists = db.Column(db.Integer, unique=False, nullable=False)
+    _yellow_cards = db.Column(db.Integer, unique=False, nullable=False)
+    _red_cards = db.Column(db.Integer, unique=False, nullable=False)
+    _passes_completed = db.Column(db.Integer, unique=False, nullable=False)
+    _tackles = db.Column(db.Integer, unique=False, nullable=False)
+    _clean_sheets = db.Column(db.Integer, unique=False, nullable=False)
 
     """Constructor"""
 
@@ -221,7 +222,28 @@ class PremierLeaguePlayer(db.Model):
     @staticmethod
     def getAllPlayers():
         return PremierLeaguePlayer.query.all()
-
+    
+    '''
+    read method with the self parameter, reading the object with all of the 
+    properties.
+    '''
+    def read(self):
+        return {
+            "name" : self.name,
+            "team" : self.team,
+            "position" : self.position,
+            "jersey_number" : self.jersey_number,
+            "age" : self.age,
+            "height" : self.height,
+            "weight" : self.weight,
+            "goals" : self.goals,
+            "assists": self.assists,
+            "yellow_cards": self.yellow_cards,
+            "red_cards": self.red_cards,
+            "passes_completed": self.passes_completed,
+            "tackles": self.tackles,
+            "clean_sheets": self.clean_sheets
+        }
 
 def initPremierLeaguePlayers():
     with app.app_context():
@@ -231,14 +253,14 @@ def initPremierLeaguePlayers():
         
         """Test data for table"""
         
-        p1 = PremierLeaguePlayer(name="Mohamed Salah", team="Liverpool", position="Forward", jersey_number=11, age=29)
-        p2 = PremierLeaguePlayer(name="Harry Kane", team="Tottenham Hotspur", position="Forward", jersey_number=10, age=28)
-        p3 = PremierLeaguePlayer(name="Kevin De Bruyne", team="Manchester City", position="Midfielder", jersey_number=17, age=30)
-        p4 = PremierLeaguePlayer(name="Virgil van Dijk", team="Liverpool", position="Defender", jersey_number=4, age=30)
-        p5 = PremierLeaguePlayer(name="Bruno Fernandes", team="Manchester United", position="Midfielder", jersey_number=18, age=27)
-        p6 = PremierLeaguePlayer(name="Jack Grealish", team="Aston Villa", position="Midfielder", jersey_number=10, age=25)
-        p7 = PremierLeaguePlayer(name="Riyad Mahrez", team="Manchester City", position="Forward", jersey_number=26, age=30)
-        p8 = PremierLeaguePlayer(name="N'Golo Kanté", team="Chelsea", position="Midfielder", jersey_number=7, age=30)
+        p1 = PremierLeaguePlayer(name="Mohamed Salah", team="Liverpool", position="Forward", jersey_number=11, age=29, height="5.7", weight=148, goals=100, assists=10, yellow_cards=0, red_cards=0, passes_completed=250, tackles=10, clean_sheets=100)
+        p2 = PremierLeaguePlayer(name="Harry Kane", team="Tottenham Hotspur", position="Forward", jersey_number=10, age=28, height="5.7", weight=148, goals=100, assists=10, yellow_cards=0, red_cards=0, passes_completed=250, tackles=10, clean_sheets=100)
+        p3 = PremierLeaguePlayer(name="Kevin De Bruyne", team="Manchester City", position="Midfielder", jersey_number=17, age=30, height="5.7", weight=148, goals=100, assists=10, yellow_cards=0, red_cards=0, passes_completed=250, tackles=10, clean_sheets=100)
+        p4 = PremierLeaguePlayer(name="Virgil van Dijk", team="Liverpool", position="Defender", jersey_number=4, age=30, height="5.7", weight=148, goals=100, assists=10, yellow_cards=0, red_cards=0, passes_completed=250, tackles=10, clean_sheets=100)
+        p5 = PremierLeaguePlayer(name="Bruno Fernandes", team="Manchester United", position="Midfielder", jersey_number=18, age=27, height="5.7", weight=148, goals=100, assists=10, yellow_cards=0, red_cards=0, passes_completed=250, tackles=10, clean_sheets=100)
+        p6 = PremierLeaguePlayer(name="Jack Grealish", team="Aston Villa", position="Midfielder", jersey_number=10, age=25, height="5.7", weight=148, goals=100, assists=10, yellow_cards=0, red_cards=0, passes_completed=250, tackles=10, clean_sheets=100)
+        p7 = PremierLeaguePlayer(name="Riyad Mahrez", team="Manchester City", position="Forward", jersey_number=26, age=30, height="5.7", weight=148, goals=100, assists=10, yellow_cards=0, red_cards=0, passes_completed=250, tackles=10, clean_sheets=100)
+        p8 = PremierLeaguePlayer(name="N'Golo Kanté", team="Chelsea", position="Midfielder", jersey_number=7, age=30, height="5.7", weight=148, goals=100, assists=10, yellow_cards=0, red_cards=0, passes_completed=250, tackles=10, clean_sheets=100)
             
         premierleagueplayersofficial = [p1, p2, p3, p4, p5, p6, p7, p8]
             
@@ -250,4 +272,4 @@ def initPremierLeaguePlayers():
                 db.session.remove()
                 print(f"Records exist or error: {player.id}")
 
-#initPremierLeaguePlayers()
+initPremierLeaguePlayers()

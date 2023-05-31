@@ -73,7 +73,10 @@ class PremierLeaguePlayerAPI:
             else:
                 players = PremierLeaguePlayer.query.all()
                 json_ready = [player.read() for player in players]
-                response = make_response(jsonify(json_ready), 200)
+                print(json_ready);
+                json_response = jsonify(json_ready)
+                print(json_response)
+                response = make_response(json_response, 200)
                 return response
 
     class _Delete(Resource):
