@@ -1,7 +1,7 @@
 from flask import Blueprint, request, jsonify
 from flask_restful import Api, Resource, reqparse # used for REST API building
 from datetime import datetime
-# the class FactofDay, defined in the corresponding model file for the feature, is being imported for its usage in the api.
+# the class NBAStats, defined in the corresponding model file for the feature, is being imported for its usage in the api.
 from model.nbastats import NBAStats
 
 # this is where the blueprint class is defined and the url prefix is set, which is then registered to the app in the main.py file.
@@ -11,7 +11,7 @@ nbastats_api = Blueprint('nbastats_api', __name__, url_prefix='/api/nbastats')
 # API docs https://flask-restful.readthedocs.io/en/latest/api.html
 api = Api(nbastats_api)
 
-# this is the main entry point for the app, with the class factAPI. 
+# this is the main entry point for the app, with the class nbaAPI. 
 class nbaAPI:
     # the _create class is being referred to for the post method, to post the objects.        
     class _Create(Resource):
@@ -45,11 +45,11 @@ class nbaAPI:
              blocks = body.get('blocks')
 
 
-             # this sets up the fact object
+             # this sets up the player object
              uo = NBAStats(stat, name, team, height, weight, gamesplayed, avgminutes, ppg, fgpercent, threepercent, ftpercent, orebounds, drebounds, assists, steals, blocks)
            
            
-             # this adds the fact to the DB (uo.create())
+             # this adds the player to the DB (uo.create())
              stat = uo.create()
              
              # if the addition was successful, then the player data is returned to the user in a readable JSON format.
