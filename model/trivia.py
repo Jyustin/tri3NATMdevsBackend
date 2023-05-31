@@ -231,3 +231,12 @@ def create_table():
         points INTEGER NOT NULL
     )""")
     connection.commit()
+def import_data():
+    cursor = connection.cursor()
+    for question in questions:
+        cursor.execute("""\
+                   INSERT OR REPLACE INTO jeopardy (category, question, answer, points)
+                   VALUES (?,?,?,?)""", (question["category"], question["question"], question["answer"], question["points"]))
+    connection.commit()
+create_table()
+import_data()
