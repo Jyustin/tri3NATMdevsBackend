@@ -1,5 +1,5 @@
 ## [SportsGames BACKEND](https://github.com/Jyustin/tri3NATMdevsBackend)
-Runtime link: https://tri3dev.duckdns.org/
+Current Runtime Link: https://tri3dev.duckdns.org/
 
 ### GETTING STARTED
 
