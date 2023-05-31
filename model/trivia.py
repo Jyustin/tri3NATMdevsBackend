@@ -162,25 +162,8 @@ questions = [
         'points' : '500'
     },
 ]
-@app.route("/questions", methods=["GET"])
-def get_questions():
-    return jsonify(questions)
 
-@app.route("/api/check_answer", methods=["POST"])
-def check_answer():
-    data = request.get_json()
-    category = data["category"]
-    points = data["points"]
-    answer = data["answer"]
-
-    for question in questions:
-        if category == question["category"] and points == question["points"]:
-            if answer == question["answer"]:
-                return jsonify({"result": "Correct"})
-
-    return jsonify({"result": "Incorrect"})
-
-@app.route("/api/check_answer", methods=["GET", "POST"])
+@app.route("/api/jeopardy", methods=["GET"])
 def jeopardy():
     category = request.args.get('category')
     points = request.args.get('points')
@@ -192,11 +175,12 @@ def jeopardy():
             }
             return jsonify(response)
 
-    return jsonify({"question": "Not found"})
+    return jsonify({"question": "Question not found"})
 
 
-if __name__ == '_main_':
+if __name__ == '__main__':
     app.run()
+
 
 # class Jeopardy(db.Model):
 #     id = db.Column(db.Integer, primary_key=True)
