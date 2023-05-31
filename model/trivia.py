@@ -168,34 +168,32 @@ def get_questions():
 
 @app.route("/api/check_answer", methods=["POST"])
 def check_answer():
-    data = request.get_json()
-    category = data["category"]
-    points = data["points"]
-    answer = data["answer"]
-
+    category = request.args.get('category')
+    points = request.args.get('points')
+    print(category,points)
+    print(request.get_json())
+    answer = request.get_json()["answer"]
     for question in questions:
         if category == question["category"] and points == question["points"]:
             if answer == question["answer"]:
                 return jsonify({"result": "Correct"})
-
     return jsonify({"result": "Incorrect"})
 
-@app.route('/api/jeopardy', methods=["GET"])
-def jeopardy():
+@app.route('/api/jeopardy')
+def data():
     category = request.args.get('category')
     points = request.args.get('points')
-
+    print(category,points)
     for question in questions:
         if category == question["category"] and points == question["points"]:
             response = {
                 "question": question["question"]
             }
             return jsonify(response)
+    return '{ "Question": "Not found" }'
 
-    return jsonify({"question": "Not found"})
 
-
-if __name__ == '_main_':
+if __name__ == '__main__':
     app.run()
 
 # class Jeopardy(db.Model):
@@ -219,7 +217,7 @@ if __name__ == '_main_':
 # #print(Jeopardy.query.all())
 
 import sqlite3
-path = "sqlite.db"
+path = "instance/volumes/sqlite.db"
 connection = sqlite3.connect(path)
 def create_table():
     cursor = connection.cursor()
