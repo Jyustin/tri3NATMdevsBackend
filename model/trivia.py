@@ -198,16 +198,16 @@ def jeopardy():
 if __name__ == '_main_':
     app.run()
 
-# #class Jeopardy(db.Model):
-# #    id = db.Column(db.Integer, primary_key=True)
+# class Jeopardy(db.Model):
+#     id = db.Column(db.Integer, primary_key=True)
 #     category = db.Column(db.Text)
 #     question = db.Column(db.Text)
 #     answer = db.Column(db.Text)
 #     points = db.Column(db.Integer)
 #     def __repr__(self):
 #         return f'Question: {self.question}'
-# #db.drop_all()
-# #db.create_all()
+# db.drop_all()
+# db.create_all()
 
 
 # def makedb():
@@ -217,3 +217,17 @@ if __name__ == '_main_':
 #     db.session.commit()
 # makedb()
 # #print(Jeopardy.query.all())
+
+import sqlite3
+path = "sqlite.db"
+connection = sqlite3.connect(path)
+def create_table():
+    cursor = connection.cursor()
+    cursor.execute("""\
+    CREATE TABLE IF NOT EXISTS jeopardy (
+        category TEXT NOT NULL,
+        question TEXT NOT NULL,
+        answer TEXT NOT NULL,
+        points INTEGER NOT NULL
+    )""")
+    connection.commit()
