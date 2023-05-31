@@ -250,4 +250,4 @@ def initPremierLeaguePlayers():
                 db.session.remove()
                 print(f"Records exist or error: {player.id}")
 
-initPremierLeaguePlayers()
+#initPremierLeaguePlayers()
