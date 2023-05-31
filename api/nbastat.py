@@ -70,3 +70,4 @@ class nbaAPI:
     # building the API endpoints. there is a create and read endpoint, to serve for both the GET and POST requests.
     api.add_resource(_Create, '/create')
     api.add_resource(_Read, '/')
+#testcommit
