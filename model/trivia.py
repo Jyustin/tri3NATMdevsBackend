@@ -196,22 +196,22 @@ if __name__ == '__main__':
     app.run()
 
 
-class Jeopardy(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    category = db.Column(db.Text)
-    question = db.Column(db.Text)
-    answer = db.Column(db.Text)
-    points = db.Column(db.Integer)
-    def __repr__(self):
-        return f'Question: {self.question}'
-db.drop_all()
-db.create_all()
+# #class Jeopardy(db.Model):
+# #    id = db.Column(db.Integer, primary_key=True)
+#     category = db.Column(db.Text)
+#     question = db.Column(db.Text)
+#     answer = db.Column(db.Text)
+#     points = db.Column(db.Integer)
+#     def __repr__(self):
+#         return f'Question: {self.question}'
+# #db.drop_all()
+# #db.create_all()
 
 
-def makedb():
-    for question in questions:
-        question = Jeopardy(category=question["category"],points=int(question["points"]),answer=question["answer"],question=question["question"])
-        db.session.add(question)
-    db.session.commit()
-makedb()
-#print(Jeopardy.query.all())
+# def makedb():
+#     for question in questions:
+#         question = Jeopardy(category=question["category"],points=int(question["points"]),answer=question["answer"],question=question["question"])
+#         db.session.add(question)
+#     db.session.commit()
+# makedb()
+# #print(Jeopardy.query.all())
