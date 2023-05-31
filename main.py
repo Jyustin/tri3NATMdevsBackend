@@ -7,7 +7,7 @@ from flask import render_template  # import render_template from "public" flask 
 from __init__ import app,db  # Definitions initialization
 from model.nbastats import initNBAStats
 import model.trivia
-#from api.pleague_players_api import premierleagueplayers_api #import api
+from api.pleague_players_api import premierleagueplayers_api #import api
 
 # setup APIs
 from api.nbastat import nbastats_api # Blueprint import api definition
@@ -17,7 +17,7 @@ db.init_app(app)
 
 # register URIs
 app.register_blueprint(nbastats_api) # register api routes
-#app.register_blueprint(premierleagueplayers_api) # register api 
+app.register_blueprint(premierleagueplayers_api) # register api 
 
 @app.errorhandler(404)  # catch for URL not found
 def page_not_found(e):
