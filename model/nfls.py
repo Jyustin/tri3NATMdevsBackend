@@ -53,5 +53,18 @@ for height in response["body"]:
 espnLink_list = []
 for espnLink in response["body"]:
     espnLink_list.append(espnLink['espnLink'])
-    
-final_list = [espnName_list, espnIDFull_list, teamID_list, weight_list, pos_list, jerseyNum_list, height_list, espnLink_list]
+
+player_list = []
+
+for player in response["body"]:
+    player_data = {
+        "espnName": player["espnName"],
+        "espnIDFull": player["espnIDFull"],
+        "teamID": player["teamID"],
+        "weight": player["weight"],
+        "pos": player["pos"],
+        "jerseyNum": player["jerseyNum"],
+        "height": player["height"],
+        "espnLink": player["espnLink"]
+    }
+    player_list.append(player_data)
