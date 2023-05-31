@@ -20,9 +20,9 @@ for espnName in response["body"]:
     espnName_list.append(espnName['espnName'])
 
 # espnIDFull list
-espnIDFull_list = []
-for espnIDFull in response["body"]:
-    espnIDFull_list.append(espnIDFull['espnIDFull'])
+espnID_list = []
+for espnID in response["body"]:
+    espnID_list.append(espnID['espnID'])
 
 # teamID list
 teamID_list = []
@@ -59,7 +59,7 @@ player_list = []
 for player in response["body"]:
     player_data = {
         "espnName": player["espnName"],
-        "espnIDFull": player["espnIDFull"],
+        "espnID": player["espnID"],
         "teamID": player["teamID"],
         "weight": player["weight"],
         "pos": player["pos"],
