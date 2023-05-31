@@ -2,6 +2,9 @@
 from flask import Flask,jsonify,request
 from __main__ import app, db
 from flask import request
+from flask import Flask, jsonify, request
+
+app = Flask(__name__)
 
 questions = [
     {
@@ -167,34 +170,35 @@ def get_questions():
 
 @app.route("/api/check_answer", methods=["POST"])
 def check_answer():
-    category = request.args.get('category')
-    points = request.args.get('points')
-    print(category,points)
-    print(request.get_json())
-    answer = request.get_json()["answer"]
+    data = request.get_json()
+    category = data["category"]
+    points = data["points"]
+    answer = data["answer"]
+
     for question in questions:
         if category == question["category"] and points == question["points"]:
             if answer == question["answer"]:
                 return jsonify({"result": "Correct"})
+
     return jsonify({"result": "Incorrect"})
 
-@app.route('/api/jeopardy')
-def data():
+@app.route('/api/jeopardy', methods=["GET"])
+def jeopardy():
     category = request.args.get('category')
     points = request.args.get('points')
-    print(category,points)
+
     for question in questions:
         if category == question["category"] and points == question["points"]:
             response = {
                 "question": question["question"]
             }
             return jsonify(response)
-    return '{ "Question": "Not found" }'
+
+    return jsonify({"question": "Not found"})
 
 
-if __name__ == '__main__':
+if __name__ == '_main_':
     app.run()
-
 
 # #class Jeopardy(db.Model):
 # #    id = db.Column(db.Integer, primary_key=True)
