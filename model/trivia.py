@@ -176,7 +176,18 @@ def jeopardy():
             return jsonify(response)
 
     return jsonify({"question": "Question not found"})
-
+@app.route("/api/check_answer", methods=["POST"])
+def check_answer():
+    category = request.args.get('category')
+    points = request.args.get('points')
+    print(category,points)
+    print(request.get_json())
+    answer = request.get_json()["answer"]
+    for question in questions:
+        if category == question["category"] and points == question["points"]:
+            if answer == question["answer"]:
+                return jsonify({"result": "Correct"})
+    return jsonify({"result": "Incorrect"})
 
 if __name__ == '__main__':
     app.run()
